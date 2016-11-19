@@ -1,0 +1,25 @@
+#Tue Oct 21 13:04:16 CST 2014
+eclipse.preferences.version=1
+encoding//src/com/research/CaptureActivity.java=gbk
+encoding//src/com/research/LazyScrollView.java=UTF-8
+encoding//src/com/research/adapter/EmojiUtil.java=UTF-8
+encoding//src/com/research/adapter/MainSearchAdapter.java=gbk
+encoding//src/com/research/camera/AutoFocusCallback.java=gbk
+encoding//src/com/research/camera/CameraConfigurationManager.java=gbk
+encoding//src/com/research/camera/CameraManager.java=gbk
+encoding//src/com/research/camera/FlashlightManager.java=gbk
+encoding//src/com/research/camera/PlanarYUVLuminanceSource.java=gbk
+encoding//src/com/research/camera/PreviewCallback.java=gbk
+encoding//src/com/research/decoding/CaptureActivityHandler.java=UTF-8
+encoding//src/com/research/global/MD5.java=UTF-8
+encoding//src/com/research/net/Utility.java=UTF-8
+encoding//src/com/research/sortlist/CharacterParser.java=gbk
+encoding//src/com/research/sortlist/ClearEditText.java=gbk
+encoding//src/com/research/sortlist/SideBar.java=gbk
+encoding//src/com/research/sortlist/SortAdapter.java=gbk
+encoding//src/com/research/sortlist/SortModel.java=gbk
+encoding//src/com/research/treeview/TreeElement.java=UTF-8
+encoding//src/com/research/treeview/TreeView.java=UTF-8
+encoding//src/com/research/treeview/TreeViewAdapter.java=UTF-8
+encoding//src/com/research/widget/SelectAddPopupWindow.java=gbk
+encoding//src/com/research/widget/SelectPicPopupWindow.java=gbk
