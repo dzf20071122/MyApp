@@ -142,14 +142,14 @@ public class BlindDateActivity extends BaseActivity implements OnClickListener {
 			public void onPageSelected(int arg0) {
 				if (arg0 == pageCount - 1) {
 					// 在最后一页，开始加载后一页的数据
-					for (int i = totalCount; i < totalCount + 9; i++) {
-						Login mLogin = ResearchCommon.getLoginResult(mContext);
-						mLogin.nickname = "dzf"+i;
-						mArrayList.add(mLogin);
-					}
-					totalCount += 9;
-					pageAdapter.addFragment(pageCount++, mArrayList,totalCount-9);
-					pageAdapter.notifyDataSetChanged();
+//					for (int i = totalCount; i < totalCount + 9; i++) {
+//						Login mLogin = ResearchCommon.getLoginResult(mContext);
+//						mLogin.nickname = "dzf"+i;
+//						mArrayList.add(mLogin);
+//					}
+//					totalCount += 9;
+//					pageAdapter.addFragment(pageCount++, mArrayList,totalCount-9);
+//					pageAdapter.notifyDataSetChanged();
 
 				}
 
@@ -191,8 +191,8 @@ public class BlindDateActivity extends BaseActivity implements OnClickListener {
 										}
 										if (mUser.mUserList != null) {
 											mArrayList.addAll(mUser.mUserList);
-											mArrayList.addAll(mUser.mUserList);
-											mArrayList.addAll(mUser.mUserList);
+//											mArrayList.addAll(mUser.mUserList);
+//											mArrayList.addAll(mUser.mUserList);
 										}
 										mHandler.sendEmptyMessage(1000);
 									}else {

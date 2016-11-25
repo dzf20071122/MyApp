@@ -289,7 +289,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 		
 	        mLogIcon = (ImageView)findViewById(R.id.logo_icon);
 	        mLogIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.actionbar_icon));
-	        mLogIcon.setVisibility(View.VISIBLE);
+	        mLogIcon.setVisibility(View.GONE);
 	        
 	        mTitleView = (TextView)findViewById(R.id.title);
 	        mTitleView.setText(mContext.getResources().getString(R.string.ochat_app_name));
@@ -300,7 +300,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,On
 	        
 	        mSearchBtn.setVisibility(View.VISIBLE);
 	        mAddBtn.setVisibility(View.VISIBLE);
-	        mMoreBtn.setVisibility(View.VISIBLE);
+	        mMoreBtn.setVisibility(View.GONE);
 	        
 	        mSearchBtn.setOnClickListener(this);
 	        mAddBtn.setOnClickListener(this);

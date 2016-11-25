@@ -270,9 +270,8 @@ public class ResearchInfo implements Serializable {
 	 */
 	public LoginResult modifyUserInfo(String file, String nickname, int gender,
 			String sign, String provinceid, String city, String friendXuanyan,
-			String friendRequire,String realName,String blindDateXuanyan,
-			String blindDateRequir,int age)
-			throws ResearchException {
+			String friendRequire, String realName, String blindDateXuanyan,
+			String blindDateRequir, int age) throws ResearchException {
 		ResearchParameters bundle = new ResearchParameters();
 
 		// 蹇呭～閫夐」
@@ -297,15 +296,14 @@ public class ResearchInfo implements Serializable {
 		if (city != null && !city.equals("")) {
 			bundle.add("city", city);
 		}
-		
+
 		bundle.add("friendXuanyan", friendXuanyan);
 		bundle.add("friendRequire", friendRequire);
 		bundle.add("realName", realName);
 		bundle.add("blindDateXuanyan", blindDateXuanyan);
 		bundle.add("blindDateRequir", blindDateRequir);
-		bundle.add("age", age+"");
-		
-		
+		bundle.add("age", age + "");
+
 		String url = SERVER_PREFIX + "/user/api/edit";
 		String reString = request(url, bundle, Utility.HTTPMETHOD_POST, 1);
 		if (reString != null && !reString.equals("")
@@ -2422,17 +2420,17 @@ public class ResearchInfo implements Serializable {
 		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
 		if (reString != null && !reString.equals("")
 				&& !reString.equals("null")) {
-			return new SchoolMeetingList(reString,1);
+			return new SchoolMeetingList(reString, 1);
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 获取分会或群的消息
 	 * 
 	 * @return
 	 * @throws ResearchException
-	 * sid 目标分会或者群id
+	 *             sid 目标分会或者群id
 	 */
 	public SchoolMeetingList getDetailInfo(String sid) throws ResearchException {
 		ResearchParameters bundle = new ResearchParameters();
@@ -2443,19 +2441,19 @@ public class ResearchInfo implements Serializable {
 		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
 		if (reString != null && !reString.equals("")
 				&& !reString.equals("null")) {
-			return new SchoolMeetingList(reString,2);
+			return new SchoolMeetingList(reString, 2);
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * 创建校友会
 	 * 
 	 * @return
 	 * @throws ResearchException
 	 */
-	public ResearchJiaState createSchoolMeeting(String name, String pid,String type) throws ResearchException {
+	public ResearchJiaState createSchoolMeeting(String name, String pid,
+			String type) throws ResearchException {
 		ResearchParameters bundle = new ResearchParameters();
 		bundle.add("appkey", APPKEY);
 		bundle.add("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
@@ -2476,22 +2474,23 @@ public class ResearchInfo implements Serializable {
 		}
 		return null;
 	}
-	
-	
+
 	/**
-	 * 交友墙，上传交友信息
-	 *  friend/api/addSocially
+	 * 交友墙，上传交友信息 friend/api/addSocially
+	 * 
 	 * @return
 	 * @throws ResearchException
 	 */
-	public ResearchJiaState uploadMakeFriendMessage(String brief, String image_urls,String require_condition, int click_good_count) throws ResearchException {
+	public ResearchJiaState uploadMakeFriendMessage(String brief,
+			String image_urls, String require_condition, int click_good_count)
+			throws ResearchException {
 		ResearchParameters bundle = new ResearchParameters();
 		bundle.add("appkey", APPKEY);
 		bundle.add("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
-		bundle.add("brief", brief);	//交友宣言
-		bundle.add("image_urls", image_urls);	//图片
-		bundle.add("require_condition", require_condition);	//交友条件
-		bundle.add("click_good_count", click_good_count +"");	//点赞数
+		bundle.add("brief", brief); // 交友宣言
+		bundle.add("image_urls", image_urls); // 图片
+		bundle.add("require_condition", require_condition); // 交友条件
+		bundle.add("click_good_count", click_good_count + ""); // 点赞数
 		String url = SERVER_PREFIX + "/friend/api/addSocially";
 		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
 		if (reString != null && !reString.equals("")
@@ -2506,22 +2505,23 @@ public class ResearchInfo implements Serializable {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 交友墙，获取墙上数据
-	 *  
+	 * 
 	 * @return
 	 * @throws ResearchException
 	 */
-	public UserList getMKFriendDateList(String page,String rows,String type) throws ResearchException {
+	public UserList getMKFriendDateList(String page, String rows, String type)
+			throws ResearchException {
 		ResearchParameters bundle = new ResearchParameters();
 		bundle.add("appkey", APPKEY);
 		Log.i("dzf", ResearchCommon.getUserId(BMapApiApp.getInstance()));
 		bundle.add("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
-		bundle.add("page", page);	//交友宣言
-		bundle.add("rows", rows);	//图片
-		bundle.add("type", type);	//交友条件
-		
+		bundle.add("page", page);
+		bundle.add("rows", rows);
+		bundle.add("type", type);
+
 		String url = SERVER_PREFIX + "/friend/api/friendWall";
 		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
 		if (reString != null && !reString.equals("")
@@ -2532,10 +2532,10 @@ public class ResearchInfo implements Serializable {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 相亲墙，获取墙上数据
-	 *  
+	 * 
 	 * @return
 	 * @throws ResearchException
 	 */
@@ -2543,7 +2543,7 @@ public class ResearchInfo implements Serializable {
 		ResearchParameters bundle = new ResearchParameters();
 		bundle.add("appkey", APPKEY);
 		bundle.add("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
-		Log.i("uid",ResearchCommon.getUserId(BMapApiApp.getInstance()));
+		Log.i("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
 		String url = SERVER_PREFIX + "/user/api/getList";
 		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
 		if (reString != null && !reString.equals("")
@@ -2554,4 +2554,35 @@ public class ResearchInfo implements Serializable {
 		}
 		return null;
 	}
+
+	/**
+	 * 查看附近人，上传经纬度
+	 * @param latitude
+	 * @param longitude
+	 * @return
+	 * @throws ResearchException
+	 */
+	public UserList getgetNearbyUser(String latitude, String longitude,String page, String rows)
+			throws ResearchException {
+
+		ResearchParameters bundle = new ResearchParameters();
+		bundle.add("appkey", APPKEY);
+		bundle.add("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
+		bundle.add("latitude", latitude);
+		bundle.add("longitude", longitude);
+		bundle.add("page", page);
+		bundle.add("rows", rows);
+		
+		String url = SERVER_PREFIX + "/user/api/getNearbyUser";
+		String reString = requestProtocol(url, bundle, Utility.HTTPMETHOD_POST);
+		Log.i("uid", ResearchCommon.getUserId(BMapApiApp.getInstance()));
+		if (reString != null && !reString.equals("")
+				&& !reString.equals("null")) {
+			// Log.e("reString", reString);
+
+			return new UserList(reString, 0);
+		}
+		return null;
+	}
+
 }

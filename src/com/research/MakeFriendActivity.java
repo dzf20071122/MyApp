@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -289,6 +292,7 @@ public class MakeFriendActivity extends BaseActivity implements
 		@Override
 		public void onPageSelected(int arg0) {
 			Animation animation = null;
+			/**
 			switch (arg0) {
 			case 0:
 				if (currIndex == 1) {
@@ -316,6 +320,7 @@ public class MakeFriendActivity extends BaseActivity implements
 			animation.setFillAfter(true);
 			animation.setDuration(300);
 			cursor.startAnimation(animation);
+			*/
 		}
 
 		@Override
@@ -363,6 +368,37 @@ public class MakeFriendActivity extends BaseActivity implements
 			case R.id.fujin_friend_layout:
 				seclectPos = 3;
 //				getFriendItems(3);
+				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				//获取所有可用的位置提供器  
+		        List<String> providers = locationManager.getProviders(true);  
+		        String locationProvider = "";
+		        if(providers.contains(LocationManager.GPS_PROVIDER)){  
+		            //如果是GPS  
+		            locationProvider = LocationManager.GPS_PROVIDER;  
+		        }else if(providers.contains(LocationManager.NETWORK_PROVIDER)){  
+		            //如果是Network  
+		            locationProvider = LocationManager.NETWORK_PROVIDER;  
+		        }else{  
+		            Toast.makeText(mContext, "没有可用的位置提供器", Toast.LENGTH_SHORT).show();  
+		            return ;  
+		        }  
+		        //获取Location  
+		        final Location location = locationManager.getLastKnownLocation(locationProvider);  
+		        String locationStr;
+		        if(location!=null){  
+		            //不为空,显示地理位置经纬度  
+		        	locationStr = "维度：" + location.getLatitude() +"\n"   
+		                    + "经度：" + location.getLongitude();  
+		        }
+		        
+//		        try {
+//					ResearchCommon.getResearchInfo().getgetNearbyUser(location.getLatitude()+"",location.getLongitude()+"","1","20");
+//				} catch (ResearchException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+				
 				getFriendWallInfo("1","20","3","update");
 //				MakeFriendAdapter mAdapter3 = pageAdapters.get(currIndex);
 //				mAdapter3.notifyDataSetChanged();
@@ -427,7 +463,34 @@ public class MakeFriendActivity extends BaseActivity implements
 										BASE_SHOW_PROGRESS_DIALOG, mContext.getResources()
 												.getString(R.string.get_wall_friend));
 
-								UserList userInfo = ResearchCommon.getResearchInfo().getMKFriendDateList(page,rows,type);
+								UserList userInfo = null;
+								if("3".equals(type)){
+									LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+									//获取所有可用的位置提供器  
+							        List<String> providers = locationManager.getProviders(true);  
+							        String locationProvider = "";
+							        if(providers.contains(LocationManager.GPS_PROVIDER)){  
+							            //如果是GPS  
+							            locationProvider = LocationManager.GPS_PROVIDER;  
+							        }else if(providers.contains(LocationManager.NETWORK_PROVIDER)){  
+							            //如果是Network  
+							            locationProvider = LocationManager.NETWORK_PROVIDER;  
+							        }else{  
+							            Toast.makeText(mContext, "没有可用的位置提供器", Toast.LENGTH_SHORT).show();  
+							            return ;  
+							        }  
+							        //获取Location  
+							        final Location location = locationManager.getLastKnownLocation(locationProvider);  
+							        String locationStr;
+							        if(location!=null){  
+							            //不为空,显示地理位置经纬度  
+							        	locationStr = "维度：" + location.getLatitude() +"\n"   
+							                    + "经度：" + location.getLongitude();  
+							        }
+									userInfo = ResearchCommon.getResearchInfo().getgetNearbyUser(location.getLatitude()+"",location.getLongitude()+"",page,rows);
+								}else{
+									userInfo = ResearchCommon.getResearchInfo().getMKFriendDateList(page,rows,type);
+								}
 //								Log.i("dzf",userInfo.toString());
 								if(userInfo != null && userInfo.resultCode == 0){
 									int res = 1000;
