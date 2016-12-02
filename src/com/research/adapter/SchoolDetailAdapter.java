@@ -1,9 +1,11 @@
 package com.research.adapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,16 +20,24 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.research.R;
+import com.research.RoomDetailActivity;
+import com.research.SchoolDetailActivity;
 import com.research.Entity.Login;
+import com.research.Entity.Room;
+import com.research.Entity.RoomList;
 import com.research.Entity.SchoolMeeting;
 import com.research.global.FeatureFunction;
+import com.research.global.GlobalParam;
 import com.research.global.ImageLoader;
+import com.research.global.ResearchCommon;
+import com.research.net.ResearchException;
 
 public class SchoolDetailAdapter extends BaseAdapter implements SectionIndexer{
 	private List<SchoolMeeting> list = null;
 	private Context mContext;
 	private ImageLoader mImageLoader;
 	private int[] mPositions;
+	
 
 	public SchoolDetailAdapter(Context mContext, List<SchoolMeeting> list) {
 		this.mContext = mContext;
@@ -111,8 +121,8 @@ public class SchoolDetailAdapter extends BaseAdapter implements SectionIndexer{
 			holder.mContentSplite = (ImageView)convertView.findViewById(R.id.content_splite);
 			holder.mSignTextView = (TextView)convertView.findViewById(R.id.prompt);
 			holder.newFriendsIcon= (TextView)convertView.findViewById(R.id.new_notify);
-			//holder.contactLayout = (LinearLayout)convertView.findViewById(R.id.contact_layout);//select_contact_splite
-			
+//			holder.contactLayout = (LinearLayout)convertView.findViewById(R.id.contact_layout);//select_contact_splite
+			holder.contactLayout = (RelativeLayout) convertView.findViewById(R.id.user_detail_layout);
 			holder.joinBtn = (Button)convertView.findViewById(R.id.btn_join);
 			
 			holder.mTag = position;
@@ -146,7 +156,7 @@ public class SchoolDetailAdapter extends BaseAdapter implements SectionIndexer{
 			holder.mContentSplite.setVisibility(View.VISIBLE);
 		}
 		
-		String name = this.list.get(position).name;
+		final String name = this.list.get(position).name;
 		
 		holder.mNameTextView.setText(name);
 		if(this.list.get(position).sec!=null && !this.list.get(position).sec.equals("")){
@@ -196,8 +206,33 @@ public class SchoolDetailAdapter extends BaseAdapter implements SectionIndexer{
 			}
 			
 		});
+		
+		holder.contactLayout.setOnClickListener(new OnClickListener(){
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				List<Room> mRoomList = ((SchoolDetailActivity) mContext).mRoomList;
+				Room room = null;
+				for(int i =0;i<mRoomList.size();i++){
+					String groupName = mRoomList.get(i).groupName;
+					if(groupName.equals(name)){
+						room = mRoomList.get(i);
+						break;
+					}
+				}
+				Intent intent = new Intent(mContext, RoomDetailActivity.class);
+				intent.putExtra("room", room);
+				intent.putExtra("groupurl", "");
+				
+				intent.putExtra("from", "SchoolDetailAdapter");
+				mContext.startActivity(intent);
+			}
+			
+		});
 
+		
 		return convertView;
 
 	}
@@ -215,6 +250,8 @@ public class SchoolDetailAdapter extends BaseAdapter implements SectionIndexer{
 		public Button joinBtn;
 	}
 
+	
+	
 
 	/**
 	 * 根据ListView的当前位置获取分类的首字母的Char ascii值

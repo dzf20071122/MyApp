@@ -16,14 +16,17 @@ public class SchoolMeeting implements Serializable {
 	public String name;
 	public String id;
 	public String icon;
-	public int num; //人数
-	public int Sum;//校友会总人数
+	public int num; // 人数
+	public int Sum;// 校友会总人数
 	public Boolean isJoin; // 是否加入
 	public int sortType; //
-	public String sec; //描述
-	
-	public SchoolMeeting(){}
-	
+	public String sec; // 描述
+
+	public ArrayList<SchoolMeetingMember> mSchoolMeetingMember;	//分会成员
+
+	public SchoolMeeting() {
+	}
+
 	public SchoolMeeting(JSONObject json) {
 
 		try {
@@ -40,17 +43,30 @@ public class SchoolMeeting implements Serializable {
 			if (!json.isNull("join")) {
 				isJoin = json.getBoolean("join");
 			}
+			if (!json.isNull("total")) {
+				num = json.getInt("total");
+			}
+			if (!json.isNull("items")) {
+				JSONArray array = json.getJSONArray("items");
+				if (array != null) {
+					mSchoolMeetingMember = new ArrayList<SchoolMeetingMember>();
+					for (int i = 0; i < array.length(); i++) {
+						mSchoolMeetingMember.add(new SchoolMeetingMember(array.getJSONObject(i)));
+					}
+
+				}
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	public SchoolMeeting(int mType,String mName, String mId){
+
+	public SchoolMeeting(int mType, String mName, String mId) {
 		name = mName;
 		id = mId;
 		sortType = mType;
-		
+
 	}
 }

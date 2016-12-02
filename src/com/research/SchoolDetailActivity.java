@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.research.Entity.Login;
 import com.research.Entity.ResearchJiaState;
+import com.research.Entity.Room;
+import com.research.Entity.RoomList;
 import com.research.Entity.SchoolMeeting;
 import com.research.Entity.SchoolMeetingList;
 import com.research.adapter.SchoolDetailAdapter;
@@ -57,6 +59,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 	
 	private String schoolName; //学校名称
 	private String schId; //学校id
+	
+
+	public List<Room> mRoomList = new ArrayList<Room>();
 	/**
 	 * 导入控件
 	 */
@@ -271,7 +276,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 	
 
 	/**
-	 * 获取通讯录人员列表
 	 * @param loadType   /school/api/detail
 	 */
 	private void getSchoolDetail(final int loadType) {
@@ -288,7 +292,18 @@ public class SchoolDetailActivity extends BaseActivity implements
 								ResearchCommon.sendMsg(mBaseHandler,
 										BASE_SHOW_PROGRESS_DIALOG, mContext.getResources()
 												.getString(R.string.get_school_list));
-								ResearchJiaState mDetailaa = ResearchCommon.getResearchInfo().uploadMakeFriendMessage("强中强","","交友条件",3);
+								
+								//------------------------------------
+								RoomList roomList = ResearchCommon.getResearchInfo().getRoomList(null);
+								if(mRoomList!=null && mRoomList.size()>0){
+									mRoomList.clear();
+								}
+								if(roomList.mRoomList!=null && roomList.mRoomList.size()>0){
+									mRoomList.addAll(roomList.mRoomList);
+								
+								}
+								//------------------------------------
+//								ResearchJiaState mDetailaa = ResearchCommon.getResearchInfo().uploadMakeFriendMessage("强中强","","交友条件",3);
 								SchoolMeetingList mDetail = ResearchCommon.getResearchInfo().getDetailInfo(schId);
 								mBaseHandler.sendEmptyMessage(BASE_HIDE_PROGRESS_DIALOG);
 								if (mDetail != null) {
@@ -391,6 +406,30 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}.start();
 	}
 	
+	
+	/*
+	 * 获取分组数据
+	 */
+	private void getGroupList(final boolean isShowProgress){
+		new Thread(){
+			public void run() {
+				try {
+					RoomList roomList = ResearchCommon.getResearchInfo().getRoomList(null);
+					if(mRoomList!=null && mRoomList.size()>0){
+						mRoomList.clear();
+					}
+					if(roomList.mRoomList!=null && roomList.mRoomList.size()>0){
+						mRoomList.addAll(roomList.mRoomList);
+					
+					}
+				} catch (ResearchException e) {
+					e.printStackTrace();
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			};
+		}.start();
+	};
 
 	@Override
 	public void onChangeState(MyPullToRefreshListView container, int state) {

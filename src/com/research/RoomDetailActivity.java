@@ -36,6 +36,7 @@ public class RoomDetailActivity extends BaseActivity implements OnItemClickListe
 
 	private Room mRoom;
 	private String mGroupUrl;
+	private String mGroupFrom;
 	private ChatPersonAdapter mAdapter;
 	private List<ChatDetailEntity> mList = new ArrayList<ChatDetailEntity>();
 
@@ -46,6 +47,7 @@ public class RoomDetailActivity extends BaseActivity implements OnItemClickListe
 		mContext = this;
 		mRoom = (Room) getIntent().getSerializableExtra("room");
 		mGroupUrl = getIntent().getStringExtra("groupurl");
+		mGroupFrom = getIntent().getStringExtra("from");
 		initCompent();
 		initRegister();
 	}
@@ -86,6 +88,10 @@ public class RoomDetailActivity extends BaseActivity implements OnItemClickListe
 		mExitLayout.setVisibility(View.VISIBLE);
 		mClearTextView = (TextView)findViewById(R.id.clear);
 		mClearTextView.setText(mContext.getResources().getString(R.string.jump_chat_activity));
+		//从校友会进来
+		if(mGroupFrom != null && "".equals("SchoolDetailAdapter")){
+			
+		}
 		showItem();
 	}
 
